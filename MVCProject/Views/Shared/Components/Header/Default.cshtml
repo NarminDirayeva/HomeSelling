@@ -1,0 +1,81 @@
+﻿@using MVCProject.Services
+@inject LayoutService service
+
+@{
+    Dictionary<string, string> settings = await service.GetSettingsAsync();
+}
+
+<!-- Header Start -->
+<div class="header-connect">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-5 col-sm-8  col-xs-12">
+                <div class="header-half header-call">
+                    <p>
+                        <span><i class="pe-7s-call"></i> @settings["Phone"]</span>
+                        <span><i class="pe-7s-mail"></i> @settings["Email"]</span>
+                    </p>
+                </div>
+            </div>
+            <div class="col-md-2 col-md-offset-5  col-sm-3 col-sm-offset-1  col-xs-12">
+                <div class="header-half header-social">
+                    <ul class="list-inline">
+                        <li><a href="@settings["Facebook"]"><i class="fa fa-facebook"></i></a></li>
+                        <li><a href="@settings["Twitter"]"><i class="fa fa-twitter"></i></a></li>
+                        <li><a href="@settings["LinkedIn"]"><i class="fa fa-linkedin"></i></a></li>
+                        <li><a href="@settings["Instagram"]"><i class="fa fa-instagram"></i></a></li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<nav class="navbar navbar-default ">
+    <div class="container">
+        <div class="navbar-header">
+            <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navigation">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <a class="navbar-brand" href="index.html"><img src="~/assets/img/@settings["Logo"]" alt=""></a>
+        </div>
+
+        <div class="collapse navbar-collapse yamm" id="navigation">
+            <div class="button navbar-right">
+                <div class="dropdown" style="display: inline-block; margin-right: 10px;">
+                    <button class="navbar-btn nav-button wow bounceInRight login dropdown-toggle"
+                            type="button" data-toggle="dropdown" data-wow-delay="0.45s">
+                        <i class="pe-7s-user"></i>
+                    </button>
+                    <ul class="dropdown-menu" aria-labelledby="settingButton">
+                        @if (User.Identity.IsAuthenticated)
+                        {
+                            <li><a class="dropdown-item" href="my-account.html">@User.Identity.Name</a></li>
+                            <li><a class="dropdown-item" asp-controller="Account" asp-action="LogOut">Logout</a></li>
+                        }
+                        else
+                        {
+                            <li><a class="dropdown-item" asp-controller="Account" asp-action="Login">Login</a></li>
+                            <li><a class="dropdown-item" asp-controller="Account" asp-action="Register">Register</a></li>
+                        }
+                    </ul>
+                </div>
+                <button class="navbar-btn nav-button wow bounceInRight login"
+                        onclick="window.open('submit-property.html')" data-wow-delay="0.48s">
+                    Submit
+                </button>
+            </div>
+
+            <ul class="main-nav nav navbar-nav navbar-right">
+                <li><a asp-action="Index" asp-controller="Home">Home</a></li>
+                <li><a asp-action="Index" asp-controller="Properties">Properties</a></li>
+                <li><a href="property.html">Property</a></li>
+                <li><a asp-action="Index" asp-controller="Contact">Contact</a></li>
+            </ul>
+        </div>
+    </div>
+</nav>
+<!-- Header End -->

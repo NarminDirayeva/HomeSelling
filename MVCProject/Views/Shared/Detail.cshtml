@@ -1,0 +1,257 @@
+﻿@model MVCProject.ViewModels.DetailVM
+<!-- property area -->
+<div class="content-area single-property" style="background-color: #FCFCFC;">
+    <div class="container">
+
+        <div class="clearfix padding-top-40">
+            <div class="col-md-8 single-property-content ">
+                <div class="row">
+                    <div class="light-slide-item">
+                        <div class="clearfix">
+
+
+                            <div class="image-gallery">
+                                <div class="main-image">
+                                    <img id="currentImage" src="~/assets/img/property-1/property1.jpg" alt="Ana görsel" />
+                                </div>
+                                <div class="thumbnail-slider">
+                                    <img src="~/assets/img/property-1/property1.jpg" alt="" class="thumbnail active" onclick="changeImage(this)">
+                                    <img src="~/assets/img/property-1/property2.jpg" alt="" class="thumbnail" onclick="changeImage(this)">
+                                    <img src="~/assets/img/property-1/property3.jpg" alt="" class="thumbnail" onclick="changeImage(this)">
+                                    <img src="~/assets/img/property-1/property4.jpg" alt="" class="thumbnail" onclick="changeImage(this)">
+                                </div>
+                                <div class="navigation-buttons">
+                                    <button class="prev" onclick="changeImageByIndex(-1)">&#10094;</button>
+                                    <button class="next" onclick="changeImageByIndex(1)">&#10095;</button>
+                                </div>
+                            </div>
+
+                            <style>
+                                .image-gallery {
+                                    max-width: 800px;
+                                    margin: auto;
+                                    position: relative;
+                                }
+
+                                .main-image img {
+                                    width: 100%;
+                                    max-height: 500px;
+                                    object-fit: contain;
+                                    border-radius: 10px;
+                                    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+                                }
+
+                                .thumbnail-slider {
+                                    display: flex;
+                                    justify-content: center;
+                                    gap: 10px;
+                                    margin-top: 15px;
+                                }
+
+                                    .thumbnail-slider img {
+                                        width: 80px;
+                                        height: 60px;
+                                        object-fit: cover;
+                                        cursor: pointer;
+                                        border-radius: 5px;
+                                        opacity: 0.6;
+                                        transition: 0.3s;
+                                    }
+
+                                        .thumbnail-slider img.active,
+                                        .thumbnail-slider img:hover {
+                                            opacity: 1;
+                                            border: 2px solid #007bff;
+                                        }
+
+                                .navigation-buttons {
+                                    position: absolute;
+                                    top: 50%;
+                                    width: 100%;
+                                    display: flex;
+                                    justify-content: space-between;
+                                    transform: translateY(-50%);
+                                }
+
+                                    .navigation-buttons button {
+                                        background-color: rgba(0, 0, 0, 0.5);
+                                        color: white;
+                                        border: none;
+                                        padding: 10px;
+                                        cursor: pointer;
+                                        font-size: 20px;
+                                        border-radius: 50%;
+                                        opacity: 0.6;
+                                    }
+
+                                        .navigation-buttons button:hover {
+                                            opacity: 1;
+                                        }
+                            </style>
+
+                            <script>
+                                let currentIndex = 0;
+                                const images = document.querySelectorAll('.thumbnail');
+
+                                function changeImage(thumbnail) {
+                                    document.getElementById('currentImage').src = thumbnail.src;
+                                    currentIndex = [...images].indexOf(thumbnail);
+                                    const thumbnails = document.querySelectorAll('.thumbnail');
+                                    thumbnails.forEach(img => img.classList.remove('active'));
+                                    thumbnail.classList.add('active');
+                                }
+
+                                function changeImageByIndex(direction) {
+                                    currentIndex = (currentIndex + direction + images.length) % images.length;
+                                    const newImage = images[currentIndex];
+                                    changeImage(newImage);
+                                }
+                            </script>
+
+
+                        </div>
+                    </div>
+                </div>
+
+                <div class="single-property-wrapper">
+                    <div class="single-property-header">
+                        <h1 class="property-title pull-left">@Model.Product.Name</h1>
+                        <span class="property-price pull-right">$@Model.Product.Price</span>
+                    </div>
+
+
+                    <!-- .property-meta -->
+
+                    <div class="section">
+                        <h4 class="s-property-title">Description</h4>
+                        <div class="s-property-content">
+                            <p>@Model.Product.Description</p>
+                        </div>
+                    </div>
+                    <!-- End description area  -->
+
+                    <div class="section additional-details">
+
+                        <h4 class="s-property-title">Additional Details</h4>
+
+                        @foreach (AdditionalDetail additional in Model.AdditionalDetail)
+                        {
+                            <ul class="additional-details-list clearfix">
+                                <li>
+                                    <span class="col-xs-6 col-sm-4 col-md-4 add-d-title">Waterfront</span>
+                                    <span class="col-xs-6 col-sm-8 col-md-8 add-d-entry">@additional.Waterfront</span>
+                                </li>
+
+                                <li>
+                                    <span class="col-xs-6 col-sm-4 col-md-4 add-d-title">Built In</span>
+                                    <span class="col-xs-6 col-sm-8 col-md-8 add-d-entry">@additional.BuiltIn</span>
+                                </li>
+                                <li>
+                                    <span class="col-xs-6 col-sm-4 col-md-4 add-d-title">Parking</span>
+                                    <span class="col-xs-6 col-sm-8 col-md-8 add-d-entry">@additional.Parking</span>
+                                </li>
+
+                                <li>
+                                    <span class="col-xs-6 col-sm-4 col-md-4 add-d-title">View</span>
+                                    <span class="col-xs-6 col-sm-8 col-md-8 add-d-entry">@additional.View</span>
+                                </li>
+
+                                <li>
+                                    <span class="col-xs-6 col-sm-4 col-md-4 add-d-title">Waterfront Description:</span>
+                                    <span class="col-xs-6 col-sm-8 col-md-8 add-d-entry">@additional.WaterfrontDescription</span>
+                                </li>
+
+                            </ul>
+                        }
+                    </div>
+                    <!-- End additional-details area  -->
+                    <div class="section property-features">
+                        <h4 class="s-property-title">Features</h4>
+                        <ul style="list-style-type: none; padding: 0; display: flex; gap: 10px;">
+                            @foreach (Feature feature in Model.Feature)
+                            {
+                                <li style="display: inline-block;">
+                                    <a href="#">@feature.Name</a>
+                                </li>
+                            }
+                        </ul>
+                    </div>
+
+
+                    <!-- End features area  -->
+                </div>
+            </div>
+
+            <div class="col-md-4 p0">
+                <aside class="sidebar sidebar-property blog-asside-right">
+
+                    @*  dealer *@
+                    <div class="dealer-widget">
+                        <div class="dealer-content">
+                            <div class="inner-wrapper">
+
+                                <div class="clear">
+                                    <div class="col-xs-4 col-sm-4 dealer-face">
+                                        <a href="">
+                                            <img src="~/assets/img/@Model.Dealer.Image" class="img-circle">
+                                        </a>
+                                    </div>
+                                    <div class="col-xs-8 col-sm-8 ">
+                                        <h3 class="dealer-name">
+                                            <a href="">@Model.Dealer.Name</a> <a href="">@Model.Dealer.Surname</a>
+                                        </h3>
+
+                                    </div>
+                                </div>
+
+                                <div class="clear">
+                                    <ul class="dealer-contacts">
+                                        <li><i class="pe-7s-map-marker strong"> </i> @Model.Dealer.Address</li>
+                                        <li><i class="pe-7s-mail strong"> </i> @Model.Dealer.Email</li>
+                                        <li><i class="pe-7s-call strong"> </i> @Model.Dealer.Phone</li>
+                                    </ul>
+                                    <p>@Model.Dealer.Description</p>
+                                </div>
+
+                            </div>
+                        </div>
+                    </div>
+
+
+                    <div class="panel panel-default sidebar-menu similar-property-wdg wow fadeInRight animated">
+                        <div class="panel-heading">
+                            <h3 class="panel-title">Similar Properties</h3>
+                        </div>
+                        <div class="panel-body recent-property-widget">
+                            <ul class="list-unstyled">
+                                @foreach (var similar in Model.SimilarProperties)
+                                {
+                                    <li class="row mb-3">
+                                        <div class="col-md-3 col-sm-3 col-xs-3 p0">
+                                            <a href="@Url.Action("Detail", "Home", new { id = similar.ID })">
+                                                <img src="~/assets/img/demo/@(similar.Images?.FirstOrDefault()?.Filename)" alt="@similar.Name" class="img-responsive">
+                                            </a>
+                                        </div>
+                                        <div class="col-md-9 col-sm-9 col-xs-9">
+                                            <h6 class="mt-0 mb-1">
+                                                <a href="@Url.Action("Detail", "Home", new { id = similar.ID })">
+                                                    @similar.Name
+                                                </a>
+                                            </h6>
+                                            <span class="property-price text-muted">$@similar.Price</span>
+                                        </div>
+                                    </li>
+                                }
+                            </ul>
+
+                        </div>
+                    </div>
+
+                    @await Html.PartialAsync("SearchPartialView")
+
+                </aside>
+            </div>
+        </div>
+
+    </div>
+</div>

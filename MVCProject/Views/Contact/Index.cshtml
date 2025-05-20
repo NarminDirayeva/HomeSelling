@@ -1,0 +1,108 @@
+﻿@model MVCProject.Models.Contact
+
+<div class="content-area recent-property padding-top-40" style="background-color: #FFF;">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-8 col-md-offset-2">
+                <div id="contact1">
+                    <div class="row">
+                        <!-- Contact Information Section -->
+                        <div class="col-sm-4">
+                            <h3><i class="fa fa-map-marker"></i> Address</h3>
+                            <p>
+                                13/25 Shibuya
+                                <br> Tokyo
+                                <br> 45Y 73J
+                                <br><strong>Japan</strong>
+                            </p>
+                        </div>
+                        <div class="col-sm-4">
+                            <h3><i class="fa fa-phone"></i> Call center</h3>
+                            <p class="text-muted">
+                                This number is toll-free if calling from Great Britain. Otherwise, we recommend using our electronic form of communication.
+                            </p>
+                            <p><strong>+33 555 444 333</strong></p>
+                        </div>
+                        <div class="col-sm-4">
+                            <h3><i class="fa fa-envelope"></i> Electronic support</h3>
+                            <p class="text-muted">Feel free to email us or use our ticketing system.</p>
+                            <ul>
+                                <li><strong><a href="mailto:info@company.com">info@company.com</a></strong></li>
+                                <li><strong><a href="#">Ticketio</a></strong> - Our ticketing support platform</li>
+                            </ul>
+                        </div>
+                    </div>
+
+                    <hr>
+
+                    <h2>Contact Form</h2>
+
+                    <!-- Success and Error Messages -->
+                    @if (ViewBag.Message != null)
+                    {
+                        <div class="alert alert-success text-center">@ViewBag.Message</div>
+                    }
+                    @if (ViewBag.Error != null)
+                    {
+                        <div class="alert alert-danger text-center">@ViewBag.Error</div>
+                    }
+
+                    <form asp-action="Index" method="post">
+                        @Html.AntiForgeryToken()
+                        <div class="row">
+                            <!-- Firstname Field -->
+                            <div class="col-sm-6">
+                                <div class="form-group">
+                                    <label asp-for="Firstname">Firstname</label>
+                                    <input asp-for="Firstname" class="form-control" />
+                                    <span asp-validation-for="Firstname" class="text-danger"></span>
+                                </div>
+                            </div>
+
+                            <!-- Lastname Field -->
+                            <div class="col-sm-6">
+                                <div class="form-group">
+                                    <label asp-for="Lastname">Lastname</label>
+                                    <input asp-for="Lastname" class="form-control" />
+                                    <span asp-validation-for="Lastname" class="text-danger"></span>
+                                </div>
+                            </div>
+
+                            <!-- Email Field -->
+                            <div class="col-sm-6">
+                                <div class="form-group">
+                                    <label asp-for="Email">Email</label>
+                                    <input asp-for="Email" class="form-control" type="email" placeholder="Enter a valid email" />
+                                    <span asp-validation-for="Email" class="text-danger"></span>
+                                </div>
+                            </div>
+
+                            <!-- Subject Field -->
+                            <div class="col-sm-6">
+                                <div class="form-group">
+                                    <label asp-for="Subject">Subject</label>
+                                    <input asp-for="Subject" class="form-control" />
+                                    <span asp-validation-for="Subject" class="text-danger"></span>
+                                </div>
+                            </div>
+
+                            <!-- Message Field -->
+                            <div class="col-sm-12">
+                                <div class="form-group">
+                                    <label asp-for="Message">Message</label>
+                                    <textarea asp-for="Message" class="form-control"></textarea>
+                                    <span asp-validation-for="Message" class="text-danger"></span>
+                                </div>
+                            </div>
+
+                            <!-- Submit Button -->
+                            <div class="col-sm-12 text-center">
+                                <button type="submit" class="btn btn-primary"><i class="fa fa-envelope-o"></i> Send Message</button>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

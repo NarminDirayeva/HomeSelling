@@ -1,0 +1,52 @@
+﻿@model LoginVM
+<!-- Page Header -->
+<div class="page-head py-5" style="background-color: #f8f9fa;">
+    <div class="container text-center">
+        <h1 class="page-title">Login to Your Account</h1>
+        <p class="lead">Welcome back! Please enter your credentials.</p>
+    </div>
+</div>
+
+<!-- Login Area -->
+<div class="register-area py-5" style="background-color: #f9f9f9;">
+    <div class="container">
+        <div class="row justify-content-center">
+            <div class="col-md-6">
+                <div class="card shadow-lg rounded-4 border-0">
+                    <div class="card-body p-5">
+                        <h2 class="mb-4 text-center">Login</h2>
+                        <form action="" method="post">
+                            <div class="form-group mb-3">
+                                <label asp-for="UsernameOrEmail">Username or Email</label>
+                                <input asp-for="UsernameOrEmail" type="email" type="username" placeholder="Enter your email or username">
+                                <span asp-validation-for="UsernameOrEmail" class="text-danger"></span>
+                            </div>
+                            <div class="form-group mb-4">
+                                <label asp-for="Password">Password</label>
+                                <input asp-for="Password" type="password" placeholder="Enter your password">
+                                <span asp-validation-for="Password" class="text-danger"></span>
+                            </div>
+                            <div class="col-md-8">
+                                <div class="check-box">
+                                    <input asp-for="IsRemember" type="checkbox" />
+                                    <label asp-for="IsRemember">Remember me</label>
+                                </div>
+                            </div>
+                            <div class="text-danger" asp-validation-summary="ModelOnly"></div>
+
+                            <div class="text-center">
+                                <button type="submit" class="btn btn-primary w-100">Log in</button>
+                            </div>
+                        </form>
+                        <div class="text-center mt-3">
+                            <small>
+                                Don't have an account?
+                                <a asp-controller="Account" asp-action="Register">Register here</a>
+                            </small>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
